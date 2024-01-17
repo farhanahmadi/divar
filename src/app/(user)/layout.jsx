@@ -18,7 +18,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html className="container mx-auto" dir="rtl" lang="en">
+    <html dir="rtl" lang="en">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <body
