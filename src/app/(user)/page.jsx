@@ -1,5 +1,6 @@
-import React from "react";
-
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
 //import mui
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,20 @@ import SideBar from "@/app/(user)/SideBar";
 import Card from "@/common/Card";
 
 function page() {
+  const [category, setCategory] = useState({
+    label: "املاک",
+    englishName: "estate",
+  });
+  const categoryHandler = async () => {
+    await axios
+      .post(`/api/categories`, { category })
+      .then(({ data }) => console.log(data))
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+        }
+      });
+  };
   return (
     <Box className="container mx-auto" sx={{ flexGrow: 1 }} mt={5}>
       <Grid container spacing={1}>
@@ -28,6 +43,9 @@ function page() {
           </Grid>
         </Grid>
       </Grid>
+      <button onClick={categoryHandler} className="bg-red-200">
+        create category
+      </button>
     </Box>
   );
 }
