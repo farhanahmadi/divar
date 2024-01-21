@@ -14,10 +14,10 @@ export async function GET() {
 }
 
 export async function POST(NextRequest) {
-  const body = await NextRequest.json();
-  const { category } = body;
+  await dbConnect();
+  const { category } = await NextRequest.json();
+  console.log(category);
   try {
-    await dbConnect();
     await Categories.create({
       label: category.label,
       englishName: category.englishName,
