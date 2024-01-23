@@ -16,7 +16,6 @@ export async function GET() {
 export async function POST(NextRequest) {
   await dbConnect();
   const { category } = await NextRequest.json();
-  console.log(category);
   try {
     await Categories.create({
       label: category.label,

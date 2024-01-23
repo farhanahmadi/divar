@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 //import component
 import HeaderCategoryList from "@/components/header/HeaderCategoryList";
@@ -8,12 +8,12 @@ import HeaderCategoryList from "@/components/header/HeaderCategoryList";
 //import icons
 import { HiChevronDown } from "react-icons/hi";
 
-function CategoryList() {
-  const [open, setOpen] = useState(false);
+//import categories hooks
+import { useGetCategories } from "@/hooks/useCategories";
 
-  const categoryListHandler = () => {
-    setOpen(!open);
-  };
+function CategoryList({ open, categoryListHandler }) {
+  const { isLoading, data } = useGetCategories();
+  const { categoriesList } = data || {};
 
   return (
     <button
@@ -22,7 +22,9 @@ function CategoryList() {
     >
       دسته بندی
       <HiChevronDown className="icon" />
-      {open && <HeaderCategoryList />}
+      {!isLoading && open && (
+        <HeaderCategoryList categoriesList={categoriesList} />
+      )}
     </button>
   );
 }

@@ -9,20 +9,31 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+
 //constants
 import { categoryList } from "@/constant/category";
 
-//import icons
-import { HiChevronLeft } from "react-icons/hi";
+//import categories service
+import { getCategories } from "@/services/categoriesService";
 
-function SideBar() {
+export const dynamic = "force-dynamic";
+export const runtime = "edge";
+
+async function SideBar() {
+  const { categoriesList } = await getCategories();
   return (
     <Box p={1}>
       <List dense={true}>
-        {categoryList.map((category) => {
+        {categoriesList.map((category) => {
           return (
-            <ListItem alignItems="flex-start" key={category.id}>
+            <ListItem alignItems="flex-start" key={category._id}>
               <ListItemButton className="rounded hover:bg-light-hover">
+                <ListItemIcon className="min-w-8">
+                  {categoryList.map(
+                    (item) =>
+                      item.englishName === category.englishName && item.icon
+                  )}
+                </ListItemIcon>
                 <ListItemText sx={{ textAlign: "right" }}>
                   {category.label}
                 </ListItemText>
