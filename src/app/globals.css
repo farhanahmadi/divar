@@ -16,4 +16,13 @@ body {
   .icon {
     @apply w-5 h-5;
   }
+  .modal {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[500px] max-w-lg bg-white p-4 border border-light-primary-600/70 rounded outline-none;
+  }
+  .modalTextField {
+    @apply rounded w-full py-2 px-2 pl-10 border border-light-primary-600/60 focus:border-red-500 transition focus:outline-none placeholder:text-right;
+  }
+  .redButton {
+    @apply flex items-center gap-x-1 py-2 px-4 bg-red-800 hover:bg-red-700 text-white rounded mx-2;
+  }
 }

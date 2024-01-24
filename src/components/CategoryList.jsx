@@ -3,7 +3,7 @@
 import React from "react";
 
 //import component
-import HeaderCategoryList from "@/components/header/HeaderCategoryList";
+import HeaderCategoryList from "@/components/HeaderCategoryList";
 
 //import icons
 import { HiChevronDown } from "react-icons/hi";

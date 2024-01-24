@@ -4,9 +4,11 @@ import React, { useState } from "react";
 
 //import mui
 import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 
 //import components
-import CategoryList from "@/components/header/CategoryList";
+import CategoryList from "@/components/CategoryList";
+import AuthModal from "@/components/AuthModal";
 
 //import icons
 import { CiLocationOn } from "react-icons/ci";
@@ -15,14 +17,32 @@ import { CiLocationOn } from "react-icons/ci";
 import { HeaderButtons } from "@/constant/buttons";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [categoryListOpen, setCategoryListOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(true);
 
+  const phoneNumberHandler = (event) => {
+    setPhoneNumber(event.target.value);
+  };
+
+  // open and close category list modal
   const categoryListHandler = () => {
-    setOpen(!open);
+    setCategoryListOpen(!categoryListOpen);
+  };
+
+  // open and close login/register list modal
+  const authMoadlHandler = () => {
+    setAuthModalOpen(!authModalOpen);
+  };
+
+  //send phoneNumber to db
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(phoneNumber);
   };
   return (
     <>
-      {open && (
+      {categoryListOpen && (
         <div className="fixed right-0 left-0 top-0 bottom-0 bg-dark-primary-500/10 backdrop-blur-sm z-20"></div>
       )}
       <div className="shadow-text-field-shadow py-2 relative z-50 bg-white">
@@ -57,7 +77,7 @@ export default function Header() {
               ارومیه
             </button>
             <CategoryList
-              open={open}
+              open={categoryListOpen}
               categoryListHandler={categoryListHandler}
             />
             <input
@@ -78,11 +98,18 @@ export default function Header() {
                 </button>
               );
             })}
-            <button className="flex items-center gap-x-1 py-2 px-4 bg-red-800 text-white rounded mx-2">
+            <Button onClick={authMoadlHandler} className="redButton">
               ثبت آگهی
-            </button>
+            </Button>
           </div>
         </div>
+        <AuthModal
+          open={authModalOpen}
+          authMoadlHandler={authMoadlHandler}
+          phoneNumber={phoneNumber}
+          phoneNumberHandler={phoneNumberHandler}
+          submitHandler={submitHandler}
+        />
       </div>
     </>
   );
