@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "../globals.css";
+import { Toaster } from "react-hot-toast";
 
 //import font
 import estedadFont from "@/constant/localFonts";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           className={`${estedadFont.variable} font-sans`}
         >
           <Providers>
+            <Toaster />
             <Header />
             {children}
           </Providers>

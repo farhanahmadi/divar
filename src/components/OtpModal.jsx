@@ -10,12 +10,12 @@ import Modal from "@mui/material/Modal";
 //import icons
 import { IoClose } from "react-icons/io5";
 
-function AuthModal({
+function OtpModal({
   open,
   authMoadlHandler,
   phoneNumber,
   phoneNumberHandler,
-  submitHandler,
+  getOtpSubmitHandler,
 }) {
   return (
     <Modal open={open} onClose={authMoadlHandler}>
@@ -27,7 +27,7 @@ function AuthModal({
           </button>
         </div>
         {/* send otp code section */}
-        <form onSubmit={submitHandler}>
+        <form onSubmit={getOtpSubmitHandler}>
           <div className="mt-10">
             <h1 className="text-xl">شمارهٔ موبایل خود را وارد کنید</h1>
             <p className="text-light-primary-600/80 text-sm mt-5">
@@ -62,9 +62,10 @@ function AuthModal({
           </Button>
         </form>
         {/* confirm otp code section  */}
+        <form></form>
       </Box>
     </Modal>
   );
 }
 
-export default AuthModal;
+export default OtpModal;

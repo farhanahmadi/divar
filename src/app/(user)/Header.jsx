@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 //import components
 import CategoryList from "@/components/CategoryList";
-import AuthModal from "@/components/AuthModal";
+import AuthModal from "@/app/(user)/auth/AuthModal";
 
 //import icons
 import { CiLocationOn } from "react-icons/ci";
@@ -17,13 +17,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { HeaderButtons } from "@/constant/buttons";
 
 export default function Header() {
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [categoryListOpen, setCategoryListOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(true);
-
-  const phoneNumberHandler = (event) => {
-    setPhoneNumber(event.target.value);
-  };
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   // open and close category list modal
   const categoryListHandler = () => {
@@ -35,11 +30,6 @@ export default function Header() {
     setAuthModalOpen(!authModalOpen);
   };
 
-  //send phoneNumber to db
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(phoneNumber);
-  };
   return (
     <>
       {categoryListOpen && (
@@ -104,11 +94,8 @@ export default function Header() {
           </div>
         </div>
         <AuthModal
-          open={authModalOpen}
+          authModalOpen={authModalOpen}
           authMoadlHandler={authMoadlHandler}
-          phoneNumber={phoneNumber}
-          phoneNumberHandler={phoneNumberHandler}
-          submitHandler={submitHandler}
         />
       </div>
     </>
