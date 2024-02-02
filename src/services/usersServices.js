@@ -6,8 +6,6 @@ export function getUsers() {
 export function createUser(data) {
   return http.post("/users", data).then(({ data }) => data);
 }
-export function createUserJWT(data) {
-  return http
-    .post("https://api.escuelajs.co/api/v1/users/", data)
-    .then(({ data }) => data);
+export function checkOtp(data) {
+  return http.post("/users/checkOtp", data).then(({ data }) => data);
 }

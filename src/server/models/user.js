@@ -17,6 +17,16 @@ const userSchema = new mongoose.Schema({
   otp: {
     type: Object,
   },
+  accessToken: {
+    type: String,
+    unique: true,
+    require: true,
+  },
+  refreshToken: {
+    type: String,
+    unique: true,
+    require: true,
+  },
 });
 
 export default mongoose.models.Users || mongoose.model("Users", userSchema);
