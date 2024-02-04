@@ -29,6 +29,9 @@ body {
   .redButton {
     @apply flex items-center gap-x-1 py-2 px-4 bg-red-800 hover:bg-red-700 text-white rounded mx-2;
   }
+  .grayButtonRounded {
+    @apply flex items-center gap-x-1 py-2 px-4 border transition border-light-primary-600 hover:bg-gray-100 text-light-primary-600 rounded mx-2;
+  }
 }
 
 .inputOtpField input[type="text"] {

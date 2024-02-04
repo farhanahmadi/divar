@@ -40,6 +40,7 @@ export async function POST(NextRequest) {
     // create new user
     await Users.create({
       phoneNumber: user.phoneNumber,
+      role: "User",
       otp: {
         code: OtpCreator(),
         expiresIn: OtpExpiresIn(),

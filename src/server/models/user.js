@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     require: true,
   },
+  role: {
+    type: String,
+  },
   properties: {
     type: Array,
   },
