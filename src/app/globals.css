@@ -38,3 +38,21 @@ body {
   padding: 15px 0px !important;
   width: 3.5rem !important;
 }
+
+.swiper-button-prev {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  --swiper-navigation-size: 10px;
+  --swiper-navigation-color: #8f8f8f;
+  border: 1px solid #eeeeee;
+}
+
+.swiper-button-next {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  --swiper-navigation-size: 10px;
+  --swiper-navigation-color: #8f8f8f;
+  border: 1px solid #eeeeee;
+}

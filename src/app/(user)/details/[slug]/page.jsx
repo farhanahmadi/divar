@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
+//import components
+import Carousel from "@/app/(user)/details/[slug]/Carousel";
+import Note from "@/app/(user)/details/[slug]/Note";
+import Feedback from "@/app/(user)/details/[slug]/Feedback";
+
 //import mui
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Divider from "@mui/material/Divider";
@@ -16,7 +21,7 @@ import { BsBookmark } from "react-icons/bs";
 
 function page() {
   return (
-    <div className="md:container md:mx-auto grid grid-cols-2 mt-5">
+    <div className="md:container md:mx-auto md:max-w-6xl grid grid-cols-2 gap-x-10 mt-5">
       {/* details of product */}
       <div className="col-span-1">
         <Breadcrumbs aria-label="breadcrumb" className="text-light-primary-600">
@@ -57,8 +62,8 @@ function page() {
             </AccordionDetails>
           </Accordion>
           <Divider />
-          <div className="grid grid-cols-2 mt-5">
-            <div className="col-span-1 flex items-center">
+          <div className="grid grid-cols-3 mt-5">
+            <div className="col-span-2 flex items-center">
               <button className="redButton flex justify-center flex-1">
                 اطلاعات تماس
               </button>
@@ -115,7 +120,11 @@ function page() {
           </div>
         </div>
       </div>
-      <div className="col-span-1"></div>
+      <div className="col-span-1">
+        <Carousel />
+        <Note />
+        <Feedback />
+      </div>
     </div>
   );
 }

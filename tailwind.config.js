@@ -20,6 +20,7 @@ module.exports = {
         "dark-primary-900": "#020621",
         "dark-primary-500": "#1c1f38",
         "light-primary-400": "#f5f5f5",
+        "light-primary-300": "#E0E0E0",
         "light-primary-600": "#4b5563",
         "light-hover": "#e4e4e7",
         "red-primary-500": "#BE3737",
