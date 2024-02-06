@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 //imoirt mui
@@ -22,6 +24,10 @@ import { categoryList } from "@/constant/category";
 
 async function page() {
   const { categoriesList } = await getCategories();
+
+  const AccordionHandler = (event) => {
+    console.log(event.target);
+  };
   return (
     <div className="md:container md:mx-auto md:max-w-2xl flex flex-col items-center mt-5">
       <div className="w-full">
@@ -49,24 +55,39 @@ async function page() {
             <List dense={true}>
               {categoriesList.map((category) => {
                 return (
-                  <ListItem
-                    alignItems="flex-start"
-                    className="pb-2 border-b border-light-primary-400"
+                  <Accordion
                     key={category._id}
+                    className="border-none rounded-none shadow-none"
+                    onChange={AccordionHandler}
                   >
-                    <ListItemButton className="rounded hover:bg-light-hover">
-                      <ListItemIcon className="min-w-8">
-                        {categoryList.map(
-                          (item) =>
-                            item.englishName === category.englishName &&
-                            item.icon
-                        )}
-                      </ListItemIcon>
-                      <ListItemText sx={{ textAlign: "right" }}>
-                        {category.label}
-                      </ListItemText>
-                    </ListItemButton>
-                  </ListItem>
+                    <AccordionSummary
+                      expandIcon={<HiChevronUp />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      className="flex items-center p-0 border-none rounded-none shadow-none text-light-primary-600"
+                    >
+                      {category.label}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <List dense={true}>
+                        {categoriesList.map((category) => {
+                          return (
+                            <ListItem
+                              alignItems="flex-start"
+                              className="pb-2 border-b border-light-primary-400"
+                              key={category._id}
+                            >
+                              <ListItemButton className="rounded hover:bg-light-hover">
+                                <ListItemText sx={{ textAlign: "right" }}>
+                                  {category.label}
+                                </ListItemText>
+                              </ListItemButton>
+                            </ListItem>
+                          );
+                        })}
+                      </List>
+                    </AccordionDetails>
+                  </Accordion>
                 );
               })}
             </List>
