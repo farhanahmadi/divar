@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 //imoirt mui
 import Accordion from "@mui/material/Accordion";
@@ -22,12 +22,14 @@ import { getCategories } from "@/services/categoriesService";
 //constants
 import { categoryList } from "@/constant/category";
 
-async function page() {
-  const { categoriesList } = await getCategories();
+//import hooks
+import { useGetCategories, useGetSubCategories } from "@/hooks/useCategories";
 
-  const AccordionHandler = (event) => {
-    console.log(event.target);
-  };
+function page() {
+  const { data: categoriesListData } = useGetCategories();
+  const { data } = useGetSubCategories("65acc5a002cd1e94757bfb56");
+  const { categoriesList } = categoriesListData || {};
+  const { filteredSubCategoriesList } = data || {};
   return (
     <div className="md:container md:mx-auto md:max-w-2xl flex flex-col items-center mt-5">
       <div className="w-full">
@@ -52,13 +54,12 @@ async function page() {
             دیدن تمام دسته‌های دیوار
           </AccordionSummary>
           <AccordionDetails>
-            <List dense={true}>
-              {categoriesList.map((category) => {
+            {categoriesList &&
+              categoriesList.map((category) => {
                 return (
                   <Accordion
                     key={category._id}
                     className="border-none rounded-none shadow-none"
-                    onChange={AccordionHandler}
                   >
                     <AccordionSummary
                       expandIcon={<HiChevronUp />}
@@ -70,31 +71,34 @@ async function page() {
                     </AccordionSummary>
                     <AccordionDetails>
                       <List dense={true}>
-                        {categoriesList.map((category) => {
-                          return (
-                            <ListItem
-                              alignItems="flex-start"
-                              className="pb-2 border-b border-light-primary-400"
-                              key={category._id}
-                            >
-                              <ListItemButton className="rounded hover:bg-light-hover">
-                                <ListItemText sx={{ textAlign: "right" }}>
-                                  {category.label}
-                                </ListItemText>
-                              </ListItemButton>
-                            </ListItem>
-                          );
-                        })}
+                        {filteredSubCategoriesList &&
+                          filteredSubCategoriesList.map((subCategory) => {
+                            return (
+                              <ListItem
+                                alignItems="flex-start"
+                                className="pb-2 border-b border-light-primary-400"
+                                key={subCategory._id}
+                              >
+                                <ListItemButton className="rounded hover:bg-light-hover">
+                                  <ListItemText sx={{ textAlign: "right" }}>
+                                    {subCategory.label}
+                                  </ListItemText>
+                                </ListItemButton>
+                              </ListItem>
+                            );
+                          })}
                       </List>
                     </AccordionDetails>
                   </Accordion>
                 );
               })}
-            </List>
           </AccordionDetails>
         </Accordion>
         <Divider />
       </div>
+      <button onClick={() => AccordionHandler("65acc5a002cd1e94757bfb56")}>
+        click
+      </button>
     </div>
   );
 }
