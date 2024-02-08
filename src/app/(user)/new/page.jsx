@@ -12,6 +12,9 @@ import Divider from "@mui/material/Divider";
 //import icons
 import { HiChevronUp } from "react-icons/hi";
 
+//import components
+import Loading from "@/common/Loading";
+
 //import categories service
 import { getCategories } from "@/services/categoriesService";
 
@@ -25,25 +28,30 @@ import CategoryList from "@/common/CategoryList";
 function page() {
   const router = useRouter();
 
-  const { data: categoriesListData } = useGetCategories();
-  const { data: filteredSubCategoriesListData } = useGetSubCategories(
-    "65acc5a002cd1e94757bfb56"
-  );
-  const { categoriesList } = categoriesListData || {};
-  const { filteredSubCategoriesList } = filteredSubCategoriesListData || {};
-
+  const [categoryId, setCategoryId] = useState("");
+  const [expanded, setExpanded] = useState(false);
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     category: "",
     subCategory: "",
   });
 
+  const { isPending: categoriesListPending, data: categoriesListData } =
+    useGetCategories();
+  const {
+    isPending: filteredSubCategoriesListPending,
+    data: filteredSubCategoriesListData,
+  } = useGetSubCategories(categoryId);
+  const { categoriesList } = categoriesListData || {};
+  const { filteredSubCategoriesList } = filteredSubCategoriesListData || {};
+
   const categoryHandler = (value) => {
     console.log(value);
   };
 
   const accordionHandler = (id) => {
-    router.push(`/new/${id}`);
+    setCategoryId(id);
+    setExpanded(id === categoryId ? false : id);
   };
 
   return (
@@ -70,13 +78,17 @@ function page() {
             دیدن تمام دسته‌های دیوار
           </AccordionSummary>
           <AccordionDetails>
-            {categoriesList &&
+            {categoriesListPending ? (
+              <Loading />
+            ) : (
+              categoriesList &&
               categoriesList.map((category) => {
                 return (
                   <Accordion
                     key={category._id}
                     className="border-none rounded-none shadow-none"
                     onChange={() => accordionHandler(category._id)}
+                    expanded={expanded === category._id}
                   >
                     <AccordionSummary
                       expandIcon={<HiChevronUp />}
@@ -95,15 +107,20 @@ function page() {
                       {category.label}
                     </AccordionSummary>
                     <AccordionDetails>
-                      <CategoryList
-                        category={category}
-                        filteredSubCategoriesList={filteredSubCategoriesList}
-                        categoryHandler={categoryHandler}
-                      />
+                      {filteredSubCategoriesListPending ? (
+                        <Loading />
+                      ) : (
+                        <CategoryList
+                          category={category}
+                          filteredSubCategoriesList={filteredSubCategoriesList}
+                          categoryHandler={categoryHandler}
+                        />
+                      )}
                     </AccordionDetails>
                   </Accordion>
                 );
-              })}
+              })
+            )}
           </AccordionDetails>
         </Accordion>
         <Divider />
