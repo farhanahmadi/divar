@@ -1,17 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 //imoirt mui
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 
 //import icons
 import { HiChevronUp } from "react-icons/hi";
@@ -24,12 +20,32 @@ import { categoryList } from "@/constant/category";
 
 //import hooks
 import { useGetCategories, useGetSubCategories } from "@/hooks/useCategories";
+import CategoryList from "@/common/CategoryList";
 
 function page() {
+  const router = useRouter();
+
   const { data: categoriesListData } = useGetCategories();
-  const { data } = useGetSubCategories("65acc5a002cd1e94757bfb56");
+  const { data: filteredSubCategoriesListData } = useGetSubCategories(
+    "65acc5a002cd1e94757bfb56"
+  );
   const { categoriesList } = categoriesListData || {};
-  const { filteredSubCategoriesList } = data || {};
+  const { filteredSubCategoriesList } = filteredSubCategoriesListData || {};
+
+  const [step, setStep] = useState(1);
+  const [data, setData] = useState({
+    category: "",
+    subCategory: "",
+  });
+
+  const categoryHandler = (value) => {
+    console.log(value);
+  };
+
+  const accordionHandler = (id) => {
+    router.push(`/new/${id}`);
+  };
+
   return (
     <div className="md:container md:mx-auto md:max-w-2xl flex flex-col items-center mt-5">
       <div className="w-full">
@@ -60,6 +76,7 @@ function page() {
                   <Accordion
                     key={category._id}
                     className="border-none rounded-none shadow-none"
+                    onChange={() => accordionHandler(category._id)}
                   >
                     <AccordionSummary
                       expandIcon={<HiChevronUp />}
@@ -67,27 +84,22 @@ function page() {
                       id="panel1-header"
                       className="flex items-center p-0 border-none rounded-none shadow-none text-light-primary-600"
                     >
+                      <div className="min-w-8">
+                        {categoryList.map((item) => (
+                          <span key={item.id}>
+                            {item.englishName === category.englishName &&
+                              item.icon}
+                          </span>
+                        ))}
+                      </div>
                       {category.label}
                     </AccordionSummary>
                     <AccordionDetails>
-                      <List dense={true}>
-                        {filteredSubCategoriesList &&
-                          filteredSubCategoriesList.map((subCategory) => {
-                            return (
-                              <ListItem
-                                alignItems="flex-start"
-                                className="pb-2 border-b border-light-primary-400"
-                                key={subCategory._id}
-                              >
-                                <ListItemButton className="rounded hover:bg-light-hover">
-                                  <ListItemText sx={{ textAlign: "right" }}>
-                                    {subCategory.label}
-                                  </ListItemText>
-                                </ListItemButton>
-                              </ListItem>
-                            );
-                          })}
-                      </List>
+                      <CategoryList
+                        category={category}
+                        filteredSubCategoriesList={filteredSubCategoriesList}
+                        categoryHandler={categoryHandler}
+                      />
                     </AccordionDetails>
                   </Accordion>
                 );
@@ -96,9 +108,6 @@ function page() {
         </Accordion>
         <Divider />
       </div>
-      <button onClick={() => AccordionHandler("65acc5a002cd1e94757bfb56")}>
-        click
-      </button>
     </div>
   );
 }
