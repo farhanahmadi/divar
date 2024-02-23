@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 function CardComponent() {
   return (
     <Link href="/">
-      <Card className="flex h-36 rounded text-center pr-1 gap-x-2 shadow-text-field-shadow">
+      <Card className="flex h-40 rounded text-center pr-1 gap-x-2 border border-light-hover shadow-none">
         <Box sx={{ flex: "1 0 auto" }}>
           <CardContent className="flex flex-col px-1 py-2">
             <Typography
@@ -46,7 +46,7 @@ function CardComponent() {
             </Typography>
           </CardContent>
         </Box>
-        <Box className="w-36 aspect-w-16 aspect-h-5 relative">
+        <Box className="w-36 aspect-w-16 aspect-h-5 relative m-2 overflow-hidden rounded">
           <CardMedia
             className="w-full h-full object-center object-cover"
             component="img"

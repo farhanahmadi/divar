@@ -56,3 +56,29 @@ body {
   --swiper-navigation-color: #8f8f8f;
   border: 1px solid #eeeeee;
 }
+
+[dir="rtl"] select {
+  background-position: left 0.5rem center;
+  padding-left: 2.5rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c0;
+}

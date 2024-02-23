@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 //imoirt mui
 import List from "@mui/material/List";
@@ -13,20 +14,22 @@ function CategoryList({ filteredSubCategoriesList, categoryHandler }) {
       {filteredSubCategoriesList &&
         filteredSubCategoriesList.map((subCategory) => {
           return (
-            <ListItem
-              alignItems="flex-start"
-              className="pb-2 border-b border-light-primary-400"
-              key={subCategory._id}
-            >
-              <ListItemButton
-                className="rounded hover:bg-light-hover"
-                onClick={() => categoryHandler(subCategory.englishName)}
+            <Link href={`/new/${subCategory._id}`}>
+              <ListItem
+                alignItems="flex-start"
+                className="pb-2 border-b border-light-primary-400"
+                key={subCategory._id}
               >
-                <ListItemText sx={{ textAlign: "right" }}>
-                  {subCategory.label}
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
+                <ListItemButton
+                  className="rounded hover:bg-light-hover"
+                  onClick={() => categoryHandler(subCategory.englishName)}
+                >
+                  <ListItemText sx={{ textAlign: "right" }}>
+                    {subCategory.label}
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </Link>
           );
         })}
     </List>
